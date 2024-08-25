@@ -1,7 +1,7 @@
 /**
  * The default redirect path after logging in
  */
-export const DEFAULT_LOGIN_REDIRECT = "/profile";
+export const DEFAULT_LOGIN_REDIRECT = "/profiles";
 export const AUTH_URL = "/auth";
 
 /**
