@@ -1,17 +1,62 @@
 "use client";
 
+import login from "@/actions/login";
+import register from "@/actions/register";
 import Input from "@/components/Input";
-import React, { useCallback, useState } from "react";
+import ShowError from "@/components/Show-Error";
+import ShowSuccess from "@/components/Show-Success";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
     const [varient, setVarient] = useState("Login");
 
     const toggleVarient = () =>
         setVarient(varient === "Login" ? "Register" : "Login");
+
+    const handleRegister = async () => {
+        setError("");
+        setSuccess("");
+
+        try {
+            const res = await register({ name, email, password });
+            if (res.error) {
+                setError(res.error);
+            } else if (res.success) {
+                setSuccess(res.success);
+                handleLogin();
+            }
+        } catch (error) {
+            setError("Something went wrong!");
+            console.log("REGISTER ERROR - " + error);
+        }
+    };
+
+    const handleLogin = async () => {
+        setError("");
+        setSuccess("");
+
+        try {
+            const res = await login({ email, password });
+            if (res?.error) {
+                setError(res.error);
+            }
+            if (res?.success) setSuccess("Redirecting to the home page...");
+        } catch (error) {
+            console.log("LOGIN ERROR - " + error);
+        }
+    };
 
     return (
         <div className="absolute w-full h-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-cover">
@@ -56,9 +101,45 @@ const Auth = () => {
                                 value={password}
                                 type="password"
                             />
-                            <button className="bg-red-600 text-white rounded-md py-4 mt-10 w-full hover:bg-red-700 transition">
+
+                            <div className="mx-3">
+                                {error && <ShowError message={error} />}
+                                {success && <ShowSuccess message={success} />}
+                            </div>
+
+                            <button
+                                className="bg-red-600 text-white rounded-md py-4 mt-10 w-full hover:bg-red-700 transition"
+                                onClick={
+                                    varient === "Login"
+                                        ? handleLogin
+                                        : handleRegister
+                                }
+                            >
                                 {varient}
                             </button>
+
+                            <div className="flex mt-8 gap-4 items-center justify-evenly">
+                                <div
+                                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white hover:opacity-80 transition cursor-pointer"
+                                    onClick={() =>
+                                        signIn("google", {
+                                            callbackUrl: DEFAULT_LOGIN_REDIRECT,
+                                        })
+                                    }
+                                >
+                                    <FcGoogle size={30} />
+                                </div>
+                                <div
+                                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white hover:opacity-80 transition cursor-pointer"
+                                    onClick={() =>
+                                        signIn("github", {
+                                            callbackUrl: DEFAULT_LOGIN_REDIRECT,
+                                        })
+                                    }
+                                >
+                                    <FaGithub size={30} />
+                                </div>
+                            </div>
 
                             <p className="text-neutral-500 mt-12 self-center">
                                 {varient === "Login"
