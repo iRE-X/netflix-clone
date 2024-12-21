@@ -26,7 +26,6 @@ const login = async ({ email, password }: LoginData) => {
         await signIn("credentials", {
             email,
             password,
-            redirectTo: DEFAULT_LOGIN_REDIRECT,
         });
     } catch (error) {
         if (error instanceof AuthError) {

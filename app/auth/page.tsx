@@ -7,6 +7,7 @@ import ShowError from "@/components/Show-Error";
 import ShowSuccess from "@/components/Show-Success";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { FaGithub } from "react-icons/fa";
@@ -21,6 +22,7 @@ const Auth = () => {
     const [success, setSuccess] = useState("");
 
     const [varient, setVarient] = useState("Login");
+    const router = useRouter();
 
     const toggleVarient = () =>
         setVarient(varient === "Login" ? "Register" : "Login");
@@ -53,6 +55,8 @@ const Auth = () => {
                 setError(res.error);
             }
             if (res?.success) setSuccess("Redirecting to the home page...");
+            router.push(DEFAULT_LOGIN_REDIRECT);
+            window.location.reload();
         } catch (error) {
             console.log("LOGIN ERROR - " + error);
         }

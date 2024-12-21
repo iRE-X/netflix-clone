@@ -38,7 +38,6 @@ export default {
                 );
                 if (!isCorrect) return null;
 
-                console.log(user);
                 return user;
             },
         }),
