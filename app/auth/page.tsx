@@ -56,7 +56,6 @@ const Auth = () => {
             }
             if (res?.success) setSuccess("Redirecting to the home page...");
             router.push(DEFAULT_LOGIN_REDIRECT);
-            window.location.reload();
         } catch (error) {
             console.log("LOGIN ERROR - " + error);
         }

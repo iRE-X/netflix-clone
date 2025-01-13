@@ -1,23 +1,18 @@
 "use client";
+import BillBoard from "@/components/BillBoard";
+import MovieList from "@/components/MovieList";
 import Navbar from "@/components/Navbar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useMovies } from "@/hooks/useMovies";
 
 export default function Home() {
-    const user = useCurrentUser();
+    const movies = useMovies();
 
     return (
         <>
             <Navbar />
-            <div className="bg-gray-800">
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-            </div>
+            <BillBoard />
+            <MovieList data={movies} title="Trending" />
         </>
     );
 }
