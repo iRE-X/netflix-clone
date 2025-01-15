@@ -1,5 +1,6 @@
 import { Movie } from "@prisma/client";
 import { BsFillPlayFill } from "react-icons/bs";
+import FavoriteButton from "./FavoriteButton";
 
 interface Props {
     movie: Movie;
@@ -85,6 +86,7 @@ const MovieCard = ({ movie }: Props) => {
                         >
                             <BsFillPlayFill size={30} />
                         </div>
+                        <FavoriteButton movieId={movie.id} />
                     </div>
 
                     <p className="text-green-400 font-semibold mt-4">
