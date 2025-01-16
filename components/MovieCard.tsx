@@ -2,6 +2,8 @@ import { Movie } from "@prisma/client";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
 import { useRouter } from "next/navigation";
+import { AiFillInfoCircle } from "react-icons/ai";
+import useInfoModal from "@/hooks/useInfoModal";
 
 interface Props {
     movie: Movie;
@@ -9,6 +11,7 @@ interface Props {
 
 const MovieCard = ({ movie }: Props) => {
     const router = useRouter();
+    const { openModal } = useInfoModal();
 
     return (
         <div className="group bg-zinc-900 h-[12vw] relative">
@@ -90,6 +93,26 @@ const MovieCard = ({ movie }: Props) => {
                             <BsFillPlayFill size={30} />
                         </div>
                         <FavoriteButton movieId={movie.id} />
+                        <div
+                            onClick={() => openModal(movie.id)}
+                            className="
+                        cursor-pointer 
+                        ml-auto
+                        group/item
+                        h-6 
+                        w-6 
+                        lg:w-10 
+                        lg:h-10 
+                        bg-white 
+                        rounded-full 
+                        flex 
+                        justify-center 
+                        items-center
+                        transition
+                        hover:bg-neutral-300"
+                        >
+                            <AiFillInfoCircle size={40} />
+                        </div>
                     </div>
 
                     <p className="text-green-400 font-semibold mt-4">

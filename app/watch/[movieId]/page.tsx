@@ -44,6 +44,7 @@ const WatchPage = ({ params: { movieId } }: Props) => {
             </nav>
             <video
                 controls
+                controlsList="nodownload"
                 className="h-full w-full"
                 poster={movie?.thumbnailUrl}
                 src={movie?.videoUrl}
