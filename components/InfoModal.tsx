@@ -11,8 +11,6 @@ interface Props {
 }
 
 const InfoModal = ({ visible, onClose }: Props) => {
-    if (!visible) return null;
-
     const [isVisible, setVisible] = useState(!!visible);
 
     const { movieId } = useInfoModal();
@@ -29,6 +27,7 @@ const InfoModal = ({ visible, onClose }: Props) => {
         }, 300);
     };
 
+    if (!visible) return null;
     return (
         <div
             className="
