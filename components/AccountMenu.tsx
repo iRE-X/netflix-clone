@@ -10,10 +10,9 @@ interface Props {
 }
 
 const AccountMenu = ({ visible }: Props) => {
-    if (!visible) return null;
-
     const user = useCurrentUser();
 
+    if (!visible) return null;
     return (
         <div className="bg-black w-56 absolute top-14 right-0 py-5 flex flex-col border-2 border-gray-800">
             <div className="flex flex-col gap-3">
