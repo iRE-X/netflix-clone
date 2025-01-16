@@ -1,4 +1,4 @@
-import { fetchRandomMovie } from "@/actions/fetchRandomMovie";
+import { fetchRandomMovie } from "@/actions/movie";
 import { Movie } from "@prisma/client";
 import { useEffect, useState } from "react";
 

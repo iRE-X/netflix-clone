@@ -21,3 +21,11 @@ export const getAllMovies = async () => {
         return null;
     }
 };
+
+export const getMovie = async (movieId: string) => {
+    try {
+        return await prisma.movie.findUnique({ where: { id: movieId } });
+    } catch {
+        return null;
+    }
+};
